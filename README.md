@@ -7,7 +7,7 @@ This repo is modeled after public opportunity lists, but tuned for the kind of d
 > Last updated: July 7, 2026
 
 [![Opportunities](https://img.shields.io/badge/opportunities-15-111827)](#opportunity-list)
-[![Internships](https://img.shields.io/badge/recent%20internships-5-555555)](#the-list)
+[![Internships](https://img.shields.io/badge/recent%20internships-13-555555)](#the-list)
 [![Focus](https://img.shields.io/badge/focus-product%20design%20%2F%20UX-2563eb)](#jasons-shortlist)
 [![Contributions](https://img.shields.io/badge/contributions-welcome-16a34a)](CONTRIBUTING.md)
 
@@ -24,24 +24,33 @@ Best-fit targets to check first when time is tight:
 
 - Check `High` priority links first.
 - Treat `Monitor` as a company or program page that may post design roles seasonally.
-- Treat `Job Board` as a recurring search source rather than a single application.
+- Treat `Job Board` as a recurring search source rather than a direct listing.
 - Move closed roles into `ARCHIVE.md` instead of deleting them, so future cycles are easier to spot.
 - Add recent internship rows in `data/internships.csv`.
+- Add official company boards in `data/company_sources.csv` so the daily refresh can scan them.
 - Add broader resources in `data/opportunities.csv`.
 - Run `python3 scripts/generate_readme.py` after editing either CSV.
 
 ## The List
 
-Recent design internships and internship search leads, newest first. `Date Posted` is the date the row was added to this list.
+Recent design internships and new-grad/early-career roles from official company career pages or company-owned ATS boards, newest first. `Date Posted` comes from the company listing metadata when available; some ATS boards only expose a recent update date.
 
 <!-- INTERNSHIPS:START -->
 | Company | Role | Location | Application/Link | Date Posted |
 | --- | --- | --- | --- | --- |
-| Figma | Product Design Intern | Check site | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.summer2027internships.com/) | Jul 07 |
-| Grassroots Analytics | Graphic Design Intern \| Fall 2026 | Washington, DC | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/grassrootsanalytics/jobs/4693566006) | Jul 07 |
-| HUSH | Intern: Design | Brooklyn, NY | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://jobs.lever.co/hush/6ca815d9-3477-4f62-82ab-6d2831b1bf0f) | Jul 07 |
-| Handshake | Remote UI/UX and Product Design Internships | Remote | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://joinhandshake.com/internships/remote/graphic-design/) | Jul 07 |
-| AIGA Design Careers | Design Intern Jobs | United States | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://designcareers.aiga.org/q-intern-jobs.html) | Jul 07 |
+| SharkNinja | Fall 2026: Product Design Engineering Co-op, Advanced Development (July/August to December) | Needham, MA, United States | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/sharkninjaoperatingllc/jobs/4646272006) | Jul 02 |
+| Formlabs | Industrial Design Intern (Fall 2026) | Somerville, MA | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.formlabs.com/job/7959457/apply/?gh_jid=7959457) | Jul 02 |
+| Grassroots Analytics | Graphic Design Intern \| Fall 2026 | Washington, District of Columbia, United States | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/grassrootsanalytics/jobs/4693566006) | Jul 01 |
+| SharkNinja | Fall 2026: Product Design Engineering Co-op, Shark (July/August to December) | Needham, MA, United States | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/sharkninjaoperatingllc/jobs/4646411006) | Jun 30 |
+| SharkNinja | Fall 2026: Industrial Design Intern (September through December) | Needham, MA, United States | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/sharkninjaoperatingllc/jobs/4601610006) | Jun 30 |
+| Astranis | Reliability Design Intern (Fall 2026) | San Francisco | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/astranis/jobs/4681472006) | Jun 30 |
+| Landor | Graphic Designer Intern or apprentice | Paris | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/landor/jobs/5465981) | Jun 25 |
+| Landor | 3D Design Co-Op | Cincinnati | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/landor/jobs/7843580) | Jun 25 |
+| Formlabs | Industrial Design Fellowship | Somerville, MA | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.formlabs.com/job/8028577/apply/?gh_jid=8028577) | Jun 25 |
+| Deeplocal | Fall Design Intern | Pittsburgh | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/deeplocal/jobs/7781481) | Jun 25 |
+| DKB Code Factory | Junior Product Designer (x,f,m) | Berlin | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/dkbcodefactory/jobs/7728307003) | Jun 24 |
+| Astranis | Hardware Design Intern, Software Defined Radio Team (Fall 2026) | San Francisco | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/astranis/jobs/4691163006) | Jun 24 |
+| MATTE Projects | Graphic Design Internship Fall 2026 (On-site, NYC) | New York, New York | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/matteprojects/jobs/6100128004) | Jun 23 |
 <!-- INTERNSHIPS:END -->
 
 ## Opportunity List

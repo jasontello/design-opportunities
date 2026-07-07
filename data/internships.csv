@@ -1,6 +1,14 @@
-date_posted,company,role,location,application_url,status,notes
-2026-07-07,Figma,Product Design Intern,Check site,https://www.summer2027internships.com/,Open,Live listing surfaced by Summer2027Internships; verify on the company site before applying.
-2026-07-07,Grassroots Analytics,Graphic Design Intern | Fall 2026,"Washington, DC",https://job-boards.greenhouse.io/grassrootsanalytics/jobs/4693566006,Open,Marketing and web design internship with portfolio-friendly creative production.
-2026-07-07,HUSH,Intern: Design,"Brooklyn, NY",https://jobs.lever.co/hush/6ca815d9-3477-4f62-82ab-6d2831b1bf0f,Open,Three-month post-grad design internship across visual design UX/UI and production.
-2026-07-07,Handshake,Remote UI/UX and Product Design Internships,Remote,https://joinhandshake.com/internships/remote/graphic-design/,Job Board,Recurring source for remote UI/UX product design and graphic design internships.
-2026-07-07,AIGA Design Careers,Design Intern Jobs,United States,https://designcareers.aiga.org/q-intern-jobs.html,Job Board,Design-specific internship search board.
+date_posted,company,role,location,application_url,status,source,source_date_kind,notes
+2026-07-02,SharkNinja,"Fall 2026: Product Design Engineering Co-op, Advanced Development (July/August to December)","Needham, MA, United States",https://job-boards.greenhouse.io/sharkninjaoperatingllc/jobs/4646272006,Open,greenhouse:sharkninjaoperatingllc,updated,Official company ATS listing.
+2026-07-02,Formlabs,Industrial Design Intern (Fall 2026),"Somerville, MA",https://careers.formlabs.com/job/7959457/apply/?gh_jid=7959457,Open,greenhouse:formlabs,updated,Official company ATS listing.
+2026-07-01,Grassroots Analytics,Graphic Design Intern | Fall 2026,"Washington, District of Columbia, United States",https://job-boards.greenhouse.io/grassrootsanalytics/jobs/4693566006,Open,greenhouse:grassrootsanalytics,first_published,Official company ATS listing.
+2026-06-30,SharkNinja,"Fall 2026: Product Design Engineering Co-op, Shark (July/August to December)","Needham, MA, United States",https://job-boards.greenhouse.io/sharkninjaoperatingllc/jobs/4646411006,Open,greenhouse:sharkninjaoperatingllc,updated,Official company ATS listing.
+2026-06-30,SharkNinja,Fall 2026: Industrial Design Intern (September through December),"Needham, MA, United States",https://job-boards.greenhouse.io/sharkninjaoperatingllc/jobs/4601610006,Open,greenhouse:sharkninjaoperatingllc,updated,Official company ATS listing.
+2026-06-30,Astranis,Reliability Design Intern (Fall 2026),San Francisco,https://job-boards.greenhouse.io/astranis/jobs/4681472006,Open,greenhouse:astranis,updated,Official company ATS listing.
+2026-06-25,Landor,Graphic Designer Intern or apprentice,Paris,https://job-boards.greenhouse.io/landor/jobs/5465981,Open,greenhouse:landor,updated,Official company ATS listing.
+2026-06-25,Landor,3D Design Co-Op,Cincinnati,https://job-boards.greenhouse.io/landor/jobs/7843580,Open,greenhouse:landor,updated,Official company ATS listing.
+2026-06-25,Formlabs,Industrial Design Fellowship,"Somerville, MA",https://careers.formlabs.com/job/8028577/apply/?gh_jid=8028577,Open,greenhouse:formlabs,first_published,Official company ATS listing.
+2026-06-25,Deeplocal,Fall Design Intern,Pittsburgh,https://job-boards.greenhouse.io/deeplocal/jobs/7781481,Open,greenhouse:deeplocal,updated,Official company ATS listing.
+2026-06-24,DKB Code Factory,"Junior Product Designer (x,f,m)",Berlin,https://job-boards.greenhouse.io/dkbcodefactory/jobs/7728307003,Open,greenhouse:dkbcodefactory,updated,Official company ATS listing.
+2026-06-24,Astranis,"Hardware Design Intern, Software Defined Radio Team (Fall 2026)",San Francisco,https://job-boards.greenhouse.io/astranis/jobs/4691163006,Open,greenhouse:astranis,first_published,Official company ATS listing.
+2026-06-23,MATTE Projects,"Graphic Design Internship Fall 2026 (On-site, NYC)","New York, New York",https://job-boards.greenhouse.io/matteprojects/jobs/6100128004,Open,greenhouse:matteprojects,first_published,Official company ATS listing.

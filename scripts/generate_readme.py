@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import re
 from collections import OrderedDict
 from pathlib import Path
 
@@ -71,6 +72,14 @@ def replace_block(readme: str, start: str, end: str, generated: str) -> str:
     return f"{before}{start}\n{generated}{end}{after}"
 
 
+def replace_internship_badge(readme: str, count: int) -> str:
+    return re.sub(
+        r"recent%20internships-\d+-555555",
+        f"recent%20internships-{count}-555555",
+        readme,
+    )
+
+
 def build_internship_table(rows: list[dict[str, str]]) -> str:
     sorted_rows = sorted(rows, key=lambda row: row["date_posted"], reverse=True)
     lines = [
@@ -134,6 +143,7 @@ def main() -> None:
     internships = load_rows(INTERNSHIPS_PATH)
     opportunities = load_rows(OPPORTUNITIES_PATH)
     readme = README_PATH.read_text(encoding="utf-8")
+    readme = replace_internship_badge(readme, len(internships))
     readme = replace_block(readme, INTERNSHIPS_START, INTERNSHIPS_END, build_internship_table(internships))
     readme = replace_block(readme, START, END, build_opportunity_tables(opportunities))
     README_PATH.write_text(readme, encoding="utf-8")

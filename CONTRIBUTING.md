@@ -30,6 +30,8 @@ Each internship should include:
 
 Add recent internship rows to [data/internships.csv](data/internships.csv).
 
+Add official company ATS boards to [data/company_sources.csv](data/company_sources.csv) so the daily refresh can find matching roles automatically.
+
 Add broader recurring programs, job boards, and resources to [data/opportunities.csv](data/opportunities.csv).
 
 After editing either CSV, regenerate the README:
@@ -57,6 +59,6 @@ Use these priority labels:
 ## Review Rules
 
 - Prefer official company, program, or organization links.
-- Use job boards only when the source is useful as an ongoing search.
+- Use third-party job boards only in the broader resources section, not as direct application links in the recent list.
 - Do not add roles that are purely software engineering unless design is a meaningful part of the work.
 - Move expired items to [ARCHIVE.md](ARCHIVE.md) instead of deleting them.
