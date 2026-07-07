@@ -1,0 +1,60 @@
+name: Add a design opportunity
+description: Suggest a product design, UI/UX, UX research, or design-adjacent opportunity.
+title: "[Opportunity]: "
+labels:
+  - opportunity
+body:
+  - type: input
+    id: organization
+    attributes:
+      label: Organization
+      placeholder: "Example: Adobe"
+    validations:
+      required: true
+  - type: input
+    id: opportunity
+    attributes:
+      label: Opportunity name
+      placeholder: "Example: Product Design Intern"
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Source URL
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Internships & University Programs
+        - Apprenticeships & Fellowships
+        - Job Boards & Search
+        - Portfolio & Career Resources
+    validations:
+      required: true
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline
+      placeholder: "Rolling, Check site, or exact date"
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      placeholder: "Remote, San Francisco, New York, etc."
+    validations:
+      required: true
+  - type: textarea
+    id: fit
+    attributes:
+      label: Why it fits
+      placeholder: "Explain why this belongs in a design opportunities list."
+    validations:
+      required: true
+
