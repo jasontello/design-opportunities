@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import concurrent.futures
+import html
 import json
 import os
 import re
@@ -17,6 +18,7 @@ from typing import Iterable
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES_PATH = ROOT / "data" / "company_sources.csv"
 OUTPUT_PATH = ROOT / "data" / "internships.csv"
+REJECTED_PATH = ROOT / "data" / "rejected_matches.csv"
 
 LOOKBACK_DAYS = int(os.environ.get("LOOKBACK_DAYS", "14"))
 REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "12"))
@@ -25,7 +27,7 @@ NOW = datetime.now(timezone.utc)
 CUTOFF = NOW - timedelta(days=LOOKBACK_DAYS)
 
 EARLY_ROLE = re.compile(
-    r"\b(intern|internship|co-?op|co op|fellowship|apprentice|new grad|graduate|university|entry level|junior|associate)\b",
+    r"\b(intern|internship|co-?op|co op|fellowship|apprentice|new grad|graduate|university|entry level|junior)\b",
     re.IGNORECASE,
 )
 DESIGN_ROLE = re.compile(
@@ -56,7 +58,102 @@ DESIGN_ROLE = re.compile(
             r"designer intern",
             r"designer internship",
             r"associate product designer",
+            r"associate ux designer",
+            r"associate ui designer",
+            r"associate visual designer",
             r"junior product designer",
+        ]
+    ),
+    re.IGNORECASE,
+)
+PHYSICAL_TITLE = re.compile(
+    "|".join(
+        [
+            r"product design engineering",
+            r"industrial design",
+            r"hardware design",
+            r"reliability design",
+            r"mechanical",
+            r"\bcad\b",
+            r"3d design",
+            r"footwear design",
+            r"manufacturing",
+            r"electrical",
+            r"electronics",
+            r"antenna",
+            r"power electronics",
+            r"control systems",
+            r"guidance, navigation",
+        ]
+    ),
+    re.IGNORECASE,
+)
+PHYSICAL_CONTENT = re.compile(
+    "|".join(
+        [
+            r"mechanical engineering",
+            r"industrial design",
+            r"product design engineering",
+            r"\bcad software\b",
+            r"\bcad\b",
+            r"solidworks",
+            r"\bcreo\b",
+            r"\brhino\b",
+            r"3d printing",
+            r"physical prototypes?",
+            r"machine shop",
+            r"\bpcb",
+            r"electronics",
+            r"arduino",
+            r"raspberry pi",
+            r"hardware",
+            r"ergonomics",
+            r"materials",
+            r"manufacturing",
+            r"fabrication",
+            r"power electronics",
+            r"control systems",
+        ]
+    ),
+    re.IGNORECASE,
+)
+DIGITAL_TITLE = re.compile(
+    "|".join(
+        [
+            r"product designer",
+            r"product design intern",
+            r"apprentice product designer",
+            r"\bux\b",
+            r"\bui\b",
+            r"user experience",
+            r"interaction designer",
+            r"experience designer",
+            r"design systems?",
+            r"content design",
+            r"brand design",
+            r"graphic design",
+            r"visual design",
+            r"motion design",
+        ]
+    ),
+    re.IGNORECASE,
+)
+DIGITAL_CONTENT = re.compile(
+    "|".join(
+        [
+            r"\bfigma\b",
+            r"wireframes?",
+            r"design systems?",
+            r"user interface",
+            r"digital product",
+            r"web app",
+            r"mobile app",
+            r"\bsaas\b",
+            r"usability",
+            r"user research",
+            r"product strategy",
+            r"interaction design",
+            r"prototype in figma",
         ]
     ),
     re.IGNORECASE,
@@ -95,12 +192,45 @@ def clean_location(value: object) -> str:
     return str(value).replace("\n", ", ").strip()
 
 
-def role_matches(title: str) -> bool:
+def plain_text(value: object) -> str:
+    if not value:
+        return ""
+    text = re.sub(r"<[^>]+>", " ", str(value))
+    text = html.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def broad_role_matches(title: str, description: str) -> bool:
     if re.search(r"\bsoftware engineer\b", title, re.IGNORECASE) and not re.search(
         r"\b(design|designer|ux|ui)\b", title, re.IGNORECASE
     ):
         return False
-    return bool(EARLY_ROLE.search(title) and DESIGN_ROLE.search(title))
+    early_title = EARLY_ROLE.search(title) or re.search(
+        r"\bassociate (product|ux|ui|visual|graphic|content|brand|interaction) designer\b",
+        title,
+        re.IGNORECASE,
+    )
+    return bool(early_title and DESIGN_ROLE.search(title))
+
+
+def classify_role(title: str, description: str) -> tuple[str, str]:
+    physical_title = PHYSICAL_TITLE.search(title)
+    if physical_title:
+        return "Rejected", f"physical_title:{physical_title.group(0).lower()}"
+
+    physical_hits = sorted({match.group(0).lower() for match in PHYSICAL_CONTENT.finditer(description)})
+    digital_title = DIGITAL_TITLE.search(title)
+    digital_content = DIGITAL_CONTENT.search(description)
+    if physical_hits and not digital_title and len(physical_hits) >= 2:
+        return "Rejected", "physical_content:" + ", ".join(physical_hits[:4])
+    if physical_hits and not (digital_title or digital_content):
+        return "Rejected", "physical_content:" + ", ".join(physical_hits[:4])
+
+    if digital_title:
+        return "Open", "digital_title:" + digital_title.group(0).lower()
+    if re.search(r"\bdesign intern(ship)?\b", title, re.IGNORECASE) and digital_content:
+        return "Open", "digital_content:" + digital_content.group(0).lower()
+    return "Needs Review", "weak_digital_signal"
 
 
 def source_date(first_seen: datetime | None, updated: datetime | None) -> tuple[datetime | None, str]:
@@ -115,23 +245,25 @@ def greenhouse_rows(company: str, board: str) -> Iterable[dict[str, str]]:
     data = fetch_json(f"https://boards-api.greenhouse.io/v1/boards/{board}/jobs?content=true")
     for job in data.get("jobs", []):  # type: ignore[union-attr]
         title = job.get("title", "")
-        if not role_matches(title):
+        description = plain_text(job.get("content", ""))
+        if not broad_role_matches(title, description):
             continue
         first_seen = parse_iso(job.get("first_published"))
         updated = parse_iso(job.get("updated_at"))
         date, date_kind = source_date(first_seen, updated)
         if not date:
             continue
+        decision, decision_reason = classify_role(title, description)
         yield {
             "date_posted": date.date().isoformat(),
             "company": company,
             "role": title,
             "location": clean_location(job.get("location")),
             "application_url": job.get("absolute_url", ""),
-            "status": "Open",
+            "status": decision,
             "source": f"greenhouse:{board}",
             "source_date_kind": date_kind,
-            "notes": "Official company ATS listing.",
+            "notes": decision_reason,
         }
 
 
@@ -139,21 +271,31 @@ def lever_rows(company: str, board: str) -> Iterable[dict[str, str]]:
     data = fetch_json(f"https://api.lever.co/v0/postings/{board}?mode=json")
     for job in data:  # type: ignore[union-attr]
         title = job.get("text", "")
-        if not role_matches(title):
+        description = plain_text(
+            " ".join(
+                [
+                    str(job.get("descriptionPlain", "")),
+                    str(job.get("additionalPlain", "")),
+                    str(job.get("descriptionBodyPlain", "")),
+                ]
+            )
+        )
+        if not broad_role_matches(title, description):
             continue
         date, date_kind = source_date(parse_millis(job.get("createdAt")), None)
         if not date:
             continue
+        decision, decision_reason = classify_role(title, description)
         yield {
             "date_posted": date.date().isoformat(),
             "company": company,
             "role": title,
             "location": clean_location(job.get("categories", {}).get("location")),
             "application_url": job.get("hostedUrl", ""),
-            "status": "Open",
+            "status": decision,
             "source": f"lever:{board}",
             "source_date_kind": date_kind,
-            "notes": "Official company ATS listing.",
+            "notes": decision_reason,
         }
 
 
@@ -161,11 +303,13 @@ def ashby_rows(company: str, board: str) -> Iterable[dict[str, str]]:
     data = fetch_json(f"https://api.ashbyhq.com/posting-api/job-board/{board}")
     for job in data.get("jobs", []):  # type: ignore[union-attr]
         title = job.get("title", "")
-        if not role_matches(title):
+        description = plain_text(job.get("descriptionPlain") or job.get("descriptionHtml"))
+        if not broad_role_matches(title, description):
             continue
         date, date_kind = source_date(parse_iso(job.get("publishedAt")), None)
         if not date:
             continue
+        decision, decision_reason = classify_role(title, description)
         location = job.get("location") or {}
         yield {
             "date_posted": date.date().isoformat(),
@@ -173,10 +317,10 @@ def ashby_rows(company: str, board: str) -> Iterable[dict[str, str]]:
             "role": title,
             "location": clean_location(location),
             "application_url": job.get("jobUrl", ""),
-            "status": "Open",
+            "status": decision,
             "source": f"ashby:{board}",
             "source_date_kind": date_kind,
-            "notes": "Official company ATS listing.",
+            "notes": decision_reason,
         }
 
 
@@ -207,7 +351,9 @@ def main() -> None:
             except Exception as exc:
                 print(f"warning: failed {source['provider']}:{source['board']}: {exc}")
 
-    deduped = {row["application_url"]: row for row in rows if row["application_url"]}
+    accepted_rows = [row for row in rows if row["status"] == "Open"]
+    rejected_rows = [row for row in rows if row["status"] != "Open"]
+    deduped = {row["application_url"]: row for row in accepted_rows if row["application_url"]}
     ordered = sorted(
         deduped.values(),
         key=lambda row: (row["date_posted"], row["company"], row["role"]),
@@ -229,7 +375,30 @@ def main() -> None:
         writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(ordered)
-    print(f"wrote {len(ordered)} internships from official company sources")
+
+    rejected_fields = [
+        "date_posted",
+        "company",
+        "role",
+        "location",
+        "application_url",
+        "source",
+        "source_date_kind",
+        "notes",
+    ]
+    rejected_ordered = sorted(
+        rejected_rows,
+        key=lambda row: (row["date_posted"], row["company"], row["role"]),
+        reverse=True,
+    )
+    with REJECTED_PATH.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rejected_fields, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows({field: row[field] for field in rejected_fields} for row in rejected_ordered)
+    print(
+        f"wrote {len(ordered)} internships and {len(rejected_ordered)} rejected matches "
+        "from official company sources"
+    )
 
 
 if __name__ == "__main__":

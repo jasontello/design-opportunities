@@ -26,12 +26,12 @@ jobs:
           python3 scripts/generate_readme.py
       - name: Commit changes
         run: |
-          if git diff --quiet -- data/internships.csv README.md; then
+          if git diff --quiet -- data/internships.csv data/rejected_matches.csv README.md; then
             echo "No internship changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/internships.csv README.md
+          git add data/internships.csv data/rejected_matches.csv README.md
           git commit -m "Refresh design internships"
           git push
