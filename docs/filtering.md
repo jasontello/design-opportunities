@@ -14,6 +14,8 @@ Keep software/digital product design roles in `data/internships.csv`:
 - Content Design
 - Visual, brand, graphic, or motion design internships
 
+The public list is also U.S.-only. Non-U.S. matches are written to `data/rejected_matches.csv` with `non_us_location`.
+
 ## Rejected Signals
 
 Roles are filtered into `data/rejected_matches.csv` when the title or description points to physical-product design instead of Figma-style digital product design.

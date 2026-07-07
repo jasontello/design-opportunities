@@ -19,6 +19,7 @@ jobs:
       - name: Refresh internships from official company boards
         env:
           LOOKBACK_DAYS: "14"
+          CLOSED_RETENTION_DAYS: "30"
           REQUEST_TIMEOUT: "12"
           MAX_WORKERS: "24"
         run: |

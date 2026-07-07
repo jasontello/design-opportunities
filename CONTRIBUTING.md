@@ -22,6 +22,7 @@ Each internship should include:
 - Role name
 - Application URL
 - Location
+- Deadline, or `Not listed` when the company ATS does not expose one
 - Date posted to this repo
 - Status
 - Why it fits this design-focused list
@@ -60,5 +61,6 @@ Use these priority labels:
 
 - Prefer official company, program, or organization links.
 - Use third-party job boards only in the broader resources section, not as direct application links in the recent list.
+- Keep the recent list U.S.-based.
 - Do not add roles that are purely software engineering unless design is a meaningful part of the work.
 - Move expired items to [ARCHIVE.md](ARCHIVE.md) instead of deleting them.

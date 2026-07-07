@@ -7,7 +7,7 @@ This repo is modeled after public opportunity lists, but tuned for the kind of d
 > Last updated: July 7, 2026
 
 [![Opportunities](https://img.shields.io/badge/opportunities-15-111827)](#opportunity-list)
-[![Internships](https://img.shields.io/badge/recent%20internships-5-555555)](#the-list)
+[![Internships](https://img.shields.io/badge/recent%20internships-3-555555)](#the-list)
 [![Focus](https://img.shields.io/badge/focus-product%20design%20%2F%20UX-2563eb)](#jasons-shortlist)
 [![Contributions](https://img.shields.io/badge/contributions-welcome-16a34a)](CONTRIBUTING.md)
 
@@ -26,7 +26,7 @@ Best-fit targets to check first when time is tight:
 - Treat `Monitor` as a company or program page that may post design roles seasonally.
 - Treat `Job Board` as a recurring search source rather than a direct listing.
 - Move closed roles into `ARCHIVE.md` instead of deleting them, so future cycles are easier to spot.
-- Add recent internship rows in `data/internships.csv`.
+- Add recent U.S.-based internship rows in `data/internships.csv`.
 - Add official company boards in `data/company_sources.csv` so the daily refresh can scan them.
 - Add broader resources in `data/opportunities.csv`.
 - Review `data/rejected_matches.csv` to audit roles filtered out as mechanical/CAD/hardware design. See [docs/filtering.md](docs/filtering.md).
@@ -34,16 +34,16 @@ Best-fit targets to check first when time is tight:
 
 ## The List
 
-Recent software/digital product design internships and new-grad/early-career roles from official company career pages or company-owned ATS boards, newest first. `Date Posted` comes from the company listing metadata when available; some ATS boards only expose a recent update date.
+Recent U.S.-based software/digital product design internships and new-grad/early-career roles from official company career pages or company-owned ATS boards, newest first. `Date Posted` comes from the company listing metadata when available; some ATS boards only expose a recent update date.
+
+This list can look short because it intentionally excludes third-party job boards, non-U.S. roles, mechanical/CAD/industrial design roles, and older listings outside the refresh window.
 
 <!-- INTERNSHIPS:START -->
-| Company | Role | Location | Application/Link | Date Posted |
-| --- | --- | --- | --- | --- |
-| Pinterest | Apprentice Product Designer | San Francisco, CA, US; Remote, US | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.pinterestcareers.com/jobs/?gh_jid=8016473) | Jul 06 |
-| AKQA | Motion Design Intern | Amsterdam | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.akqa.com/jobs/8010016/?gh_jid=8010016) | Jul 02 |
-| Grassroots Analytics | Graphic Design Intern \| Fall 2026 | Washington, District of Columbia, United States | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/grassrootsanalytics/jobs/4693566006) | Jul 01 |
-| Landor | Graphic Designer Intern or apprentice | Paris | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/landor/jobs/5465981) | Jun 25 |
-| MATTE Projects | Graphic Design Internship Fall 2026 (On-site, NYC) | New York, New York | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/matteprojects/jobs/6100128004) | Jun 23 |
+| Status | Company | Role | Location | Deadline | Application/Link | Date Posted |
+| --- | --- | --- | --- | --- | --- | --- |
+| Open | Pinterest | Apprentice Product Designer | San Francisco, CA, US; Remote, US | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.pinterestcareers.com/jobs/?gh_jid=8016473) | Jul 06 |
+| Open | Grassroots Analytics | Graphic Design Intern \| Fall 2026 | Washington, District of Columbia, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/grassrootsanalytics/jobs/4693566006) | Jul 01 |
+| Open | MATTE Projects | Graphic Design Internship Fall 2026 (On-site, NYC) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/matteprojects/jobs/6100128004) | Jun 23 |
 <!-- INTERNSHIPS:END -->
 
 ## Opportunity List

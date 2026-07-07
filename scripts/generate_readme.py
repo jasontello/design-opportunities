@@ -36,6 +36,10 @@ def load_rows(path: Path) -> list[dict[str, str]]:
 
 
 def format_date(iso_date: str) -> str:
+    if not iso_date or iso_date == "Not listed":
+        return "Not listed"
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", iso_date):
+        return iso_date
     _, month, day = iso_date.split("-")
     names = {
         "01": "Jan",
@@ -81,22 +85,25 @@ def replace_internship_badge(readme: str, count: int) -> str:
 
 
 def build_internship_table(rows: list[dict[str, str]]) -> str:
-    sorted_rows = sorted(rows, key=lambda row: row["date_posted"], reverse=True)
+    sorted_rows = sorted(
+        rows,
+        key=lambda row: (row.get("status") == "Open", row["date_posted"], row["company"], row["role"]),
+        reverse=True,
+    )
     lines = [
-        "| Company | Role | Location | Application/Link | Date Posted |",
-        "| --- | --- | --- | --- | --- |",
+        "| Status | Company | Role | Location | Deadline | Application/Link | Date Posted |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
     ]
     for row in sorted_rows:
-        company = cell(row["company"])
-        if row.get("status") == "Closed":
-            company = f"{company} [CLOSED]"
         lines.append(
             "| "
             + " | ".join(
                 [
-                    company,
+                    cell(row.get("status", "Open")),
+                    cell(row["company"]),
                     cell(row["role"]),
                     cell(row["location"]),
+                    cell(format_date(row.get("deadline", "Not listed"))),
                     apply_button(row["application_url"]),
                     cell(format_date(row["date_posted"])),
                 ]

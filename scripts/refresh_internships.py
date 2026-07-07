@@ -21,10 +21,12 @@ OUTPUT_PATH = ROOT / "data" / "internships.csv"
 REJECTED_PATH = ROOT / "data" / "rejected_matches.csv"
 
 LOOKBACK_DAYS = int(os.environ.get("LOOKBACK_DAYS", "14"))
+CLOSED_RETENTION_DAYS = int(os.environ.get("CLOSED_RETENTION_DAYS", "30"))
 REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "12"))
 MAX_WORKERS = int(os.environ.get("MAX_WORKERS", "24"))
 NOW = datetime.now(timezone.utc)
 CUTOFF = NOW - timedelta(days=LOOKBACK_DAYS)
+CLOSED_CUTOFF = NOW - timedelta(days=CLOSED_RETENTION_DAYS)
 
 EARLY_ROLE = re.compile(
     r"\b(intern|internship|co-?op|co op|fellowship|apprentice|new grad|graduate|university|entry level|junior)\b",
@@ -158,6 +160,14 @@ DIGITAL_CONTENT = re.compile(
     ),
     re.IGNORECASE,
 )
+US_LOCATION = re.compile(
+    r"("
+    r"\b(united states|usa|u\.s\.|u\.s\.a\.|remote,\s*us|remote\s+us)\b"
+    r"|\b(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY|DC)\b"
+    r"|Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|Wisconsin|West Virginia|Wyoming|District of Columbia"
+    r")",
+    re.IGNORECASE,
+)
 
 
 def fetch_json(url: str) -> object:
@@ -178,6 +188,12 @@ def parse_iso(value: str | None) -> datetime | None:
     return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
 
 
+def parse_date(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    return datetime.fromisoformat(value).replace(tzinfo=timezone.utc)
+
+
 def parse_millis(value: int | None) -> datetime | None:
     if not value:
         return None
@@ -190,6 +206,18 @@ def clean_location(value: object) -> str:
     if not value:
         return "Check site"
     return str(value).replace("\n", ", ").strip()
+
+
+def clean_deadline(value: object) -> str:
+    if isinstance(value, dict):
+        value = value.get("date") or value.get("datetime") or value.get("timestamp")
+    if not value:
+        return "Not listed"
+    return str(value).strip()
+
+
+def is_us_location(location: str) -> bool:
+    return bool(US_LOCATION.search(location))
 
 
 def plain_text(value: object) -> str:
@@ -233,6 +261,14 @@ def classify_role(title: str, description: str) -> tuple[str, str]:
     return "Needs Review", "weak_digital_signal"
 
 
+def finalize_row(row: dict[str, str]) -> dict[str, str]:
+    if row["status"] == "Open" and not is_us_location(row["location"]):
+        row = row.copy()
+        row["status"] = "Rejected"
+        row["notes"] = "non_us_location"
+    return row
+
+
 def source_date(first_seen: datetime | None, updated: datetime | None) -> tuple[datetime | None, str]:
     if first_seen and first_seen >= CUTOFF:
         return first_seen, "first_published"
@@ -260,6 +296,7 @@ def greenhouse_rows(company: str, board: str) -> Iterable[dict[str, str]]:
             "role": title,
             "location": clean_location(job.get("location")),
             "application_url": job.get("absolute_url", ""),
+            "deadline": clean_deadline(job.get("application_deadline")),
             "status": decision,
             "source": f"greenhouse:{board}",
             "source_date_kind": date_kind,
@@ -292,6 +329,7 @@ def lever_rows(company: str, board: str) -> Iterable[dict[str, str]]:
             "role": title,
             "location": clean_location(job.get("categories", {}).get("location")),
             "application_url": job.get("hostedUrl", ""),
+            "deadline": "Not listed",
             "status": decision,
             "source": f"lever:{board}",
             "source_date_kind": date_kind,
@@ -317,6 +355,7 @@ def ashby_rows(company: str, board: str) -> Iterable[dict[str, str]]:
             "role": title,
             "location": clean_location(location),
             "application_url": job.get("jobUrl", ""),
+            "deadline": "Not listed",
             "status": decision,
             "source": f"ashby:{board}",
             "source_date_kind": date_kind,
@@ -326,6 +365,13 @@ def ashby_rows(company: str, board: str) -> Iterable[dict[str, str]]:
 
 def load_sources() -> list[dict[str, str]]:
     with SOURCES_PATH.open(newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
+
+
+def load_previous_rows() -> list[dict[str, str]]:
+    if not OUTPUT_PATH.exists():
+        return []
+    with OUTPUT_PATH.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
 
 
@@ -347,16 +393,30 @@ def main() -> None:
         for future in concurrent.futures.as_completed(future_sources):
             source = future_sources[future]
             try:
-                rows.extend(future.result())
+                rows.extend(finalize_row(row) for row in future.result())
             except Exception as exc:
                 print(f"warning: failed {source['provider']}:{source['board']}: {exc}")
 
     accepted_rows = [row for row in rows if row["status"] == "Open"]
     rejected_rows = [row for row in rows if row["status"] != "Open"]
     deduped = {row["application_url"]: row for row in accepted_rows if row["application_url"]}
+    current_urls = set(deduped)
+    for previous in load_previous_rows():
+        previous_url = previous.get("application_url", "")
+        previous_date = parse_date(previous.get("date_posted"))
+        should_keep_closed = (
+            previous.get("status") == "Closed" and previous_date and previous_date >= CLOSED_CUTOFF
+        )
+        should_mark_closed = previous.get("status") == "Open" and previous_url not in current_urls
+        if previous_url and (should_keep_closed or should_mark_closed) and is_us_location(previous.get("location", "")):
+            closed = previous.copy()
+            closed["status"] = "Closed"
+            closed["deadline"] = closed.get("deadline") or "Not listed"
+            closed["notes"] = "missing_from_latest_company_board"
+            deduped[previous_url] = closed
     ordered = sorted(
         deduped.values(),
-        key=lambda row: (row["date_posted"], row["company"], row["role"]),
+        key=lambda row: (row["status"] == "Open", row["date_posted"], row["company"], row["role"]),
         reverse=True,
     )
 
@@ -366,6 +426,7 @@ def main() -> None:
         "role",
         "location",
         "application_url",
+        "deadline",
         "status",
         "source",
         "source_date_kind",
@@ -382,6 +443,7 @@ def main() -> None:
         "role",
         "location",
         "application_url",
+        "deadline",
         "source",
         "source_date_kind",
         "notes",
