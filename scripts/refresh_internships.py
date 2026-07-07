@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import concurrent.futures
 import json
 import os
 import re
@@ -18,21 +19,28 @@ SOURCES_PATH = ROOT / "data" / "company_sources.csv"
 OUTPUT_PATH = ROOT / "data" / "internships.csv"
 
 LOOKBACK_DAYS = int(os.environ.get("LOOKBACK_DAYS", "14"))
+REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "12"))
+MAX_WORKERS = int(os.environ.get("MAX_WORKERS", "24"))
 NOW = datetime.now(timezone.utc)
 CUTOFF = NOW - timedelta(days=LOOKBACK_DAYS)
 
 EARLY_ROLE = re.compile(
-    r"\b(intern|internship|co-?op|co op|fellowship|apprentice|new grad|graduate|junior|associate)\b",
+    r"\b(intern|internship|co-?op|co op|fellowship|apprentice|new grad|graduate|university|entry level|junior|associate)\b",
     re.IGNORECASE,
 )
 DESIGN_ROLE = re.compile(
     "|".join(
         [
             r"product design",
+            r"product designer",
             r"graphic design",
+            r"graphic designer",
             r"visual design",
+            r"visual designer",
             r"\bux\b",
             r"\bui\b",
+            r"interaction designer",
+            r"experience designer",
             r"user experience",
             r"user research",
             r"design research",
@@ -63,7 +71,7 @@ def fetch_json(url: str) -> object:
             "User-Agent": "design-opportunities-refresh/1.0",
         },
     )
-    with urllib.request.urlopen(request, timeout=30) as response:
+    with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT) as response:
         return json.load(response)
 
 
@@ -88,6 +96,10 @@ def clean_location(value: object) -> str:
 
 
 def role_matches(title: str) -> bool:
+    if re.search(r"\bsoftware engineer\b", title, re.IGNORECASE) and not re.search(
+        r"\b(design|designer|ux|ui)\b", title, re.IGNORECASE
+    ):
+        return False
     return bool(EARLY_ROLE.search(title) and DESIGN_ROLE.search(title))
 
 
@@ -173,19 +185,27 @@ def load_sources() -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
-def main() -> None:
-    rows: list[dict[str, str]] = []
+def fetch_source(source: dict[str, str]) -> list[dict[str, str]]:
     providers = {
         "greenhouse": greenhouse_rows,
         "lever": lever_rows,
         "ashby": ashby_rows,
     }
-    for source in load_sources():
-        provider = source["provider"]
-        try:
-            rows.extend(providers[provider](source["company"], source["board"]))
-        except Exception as exc:
-            print(f"warning: failed {provider}:{source['board']}: {exc}")
+    provider = source["provider"]
+    return list(providers[provider](source["company"], source["board"]))
+
+
+def main() -> None:
+    rows: list[dict[str, str]] = []
+    sources = load_sources()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        future_sources = {executor.submit(fetch_source, source): source for source in sources}
+        for future in concurrent.futures.as_completed(future_sources):
+            source = future_sources[future]
+            try:
+                rows.extend(future.result())
+            except Exception as exc:
+                print(f"warning: failed {source['provider']}:{source['board']}: {exc}")
 
     deduped = {row["application_url"]: row for row in rows if row["application_url"]}
     ordered = sorted(

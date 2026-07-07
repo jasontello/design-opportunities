@@ -19,6 +19,8 @@ jobs:
       - name: Refresh internships from official company boards
         env:
           LOOKBACK_DAYS: "14"
+          REQUEST_TIMEOUT: "12"
+          MAX_WORKERS: "24"
         run: |
           python3 scripts/refresh_internships.py
           python3 scripts/generate_readme.py
