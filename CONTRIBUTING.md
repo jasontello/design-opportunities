@@ -16,20 +16,23 @@ Good additions are opportunities for:
 
 ## What To Include
 
-Each opportunity should include:
+Each internship should include:
 
 - Organization
-- Opportunity name
-- Source URL
-- Status
-- Deadline or "Rolling"
+- Role name
+- Application URL
 - Location
-- Eligibility
+- Date posted to this repo
+- Status
 - Why it fits this design-focused list
 
 ## Data Format
 
-Add entries to [data/opportunities.csv](data/opportunities.csv), then regenerate the README:
+Add recent internship rows to [data/internships.csv](data/internships.csv).
+
+Add broader recurring programs, job boards, and resources to [data/opportunities.csv](data/opportunities.csv).
+
+After editing either CSV, regenerate the README:
 
 ```bash
 python3 scripts/generate_readme.py
@@ -38,11 +41,11 @@ python3 scripts/generate_readme.py
 Use these status labels:
 
 - `Open`
-- `Monitor`
-- `Future Cycle`
 - `Closing Soon`
 - `Closed`
 - `Job Board`
+- `Monitor`
+- `Future Cycle`
 - `Resource`
 
 Use these priority labels:
@@ -57,4 +60,3 @@ Use these priority labels:
 - Use job boards only when the source is useful as an ongoing search.
 - Do not add roles that are purely software engineering unless design is a meaningful part of the work.
 - Move expired items to [ARCHIVE.md](ARCHIVE.md) instead of deleting them.
-
