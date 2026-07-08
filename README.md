@@ -43,7 +43,7 @@ This list can look short because it intentionally excludes third-party job board
 | --- | --- | --- | --- | --- | --- | --- |
 | Open | Pinterest | Apprentice Product Designer | San Francisco, CA, US; Remote, US | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.pinterestcareers.com/jobs/?gh_jid=8016473) | Jul 06 |
 | Open | Grassroots Analytics | Graphic Design Intern \| Fall 2026 | Washington, District of Columbia, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/grassrootsanalytics/jobs/4693566006) | Jul 01 |
-| Open | MATTE Projects | Graphic Design Internship Fall 2026 (On-site, NYC) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/matteprojects/jobs/6100128004) | Jun 23 |
+| Closed | MATTE Projects | Graphic Design Internship Fall 2026 (On-site, NYC) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/matteprojects/jobs/6100128004) | Jun 23 |
 <!-- INTERNSHIPS:END -->
 
 ## Opportunity List
