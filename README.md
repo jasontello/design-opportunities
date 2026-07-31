@@ -41,8 +41,8 @@ This list can look short because it intentionally excludes third-party job board
 <!-- INTERNSHIPS:START -->
 | Status | Company | Role | Location | Deadline | Application/Link | Date Posted |
 | --- | --- | --- | --- | --- | --- | --- |
+| Open | Gemini | Junior Brand Designer (Social) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://boards.greenhouse.io/embed/job_app?for=gemini&token=7955267&gh_jid=7955267) | Jul 30 |
 | Closed | Pinterest | Apprentice Product Designer | San Francisco, CA, US; Remote, US | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.pinterestcareers.com/jobs/?gh_jid=8016473) | Jul 06 |
-| Closed | Grassroots Analytics | Graphic Design Intern \| Fall 2026 | Washington, District of Columbia, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/grassrootsanalytics/jobs/4693566006) | Jul 01 |
 <!-- INTERNSHIPS:END -->
 
 ## Opportunity List
