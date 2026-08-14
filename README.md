@@ -42,7 +42,7 @@ This list can look short because it intentionally excludes third-party job board
 | Status | Company | Role | Location | Deadline | Application/Link | Date Posted |
 | --- | --- | --- | --- | --- | --- | --- |
 | Open | Palantir | Product Designer, Internship - US Government | Palo Alto, CA | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://jobs.lever.co/palantir/9db71277-3a9a-481b-a2a3-25c3125b0e8a) | Jul 31 |
-| Open | Gemini | Junior Brand Designer (Social) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://boards.greenhouse.io/embed/job_app?for=gemini&token=7955267&gh_jid=7955267) | Jul 30 |
+| Closed | Gemini | Junior Brand Designer (Social) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://boards.greenhouse.io/embed/job_app?for=gemini&token=7955267&gh_jid=7955267) | Jul 30 |
 <!-- INTERNSHIPS:END -->
 
 ## Opportunity List
