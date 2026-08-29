@@ -7,7 +7,7 @@ This repo is modeled after public opportunity lists, but tuned for the kind of d
 > Last updated: July 7, 2026
 
 [![Opportunities](https://img.shields.io/badge/opportunities-15-111827)](#opportunity-list)
-[![Internships](https://img.shields.io/badge/recent%20internships-3-555555)](#the-list)
+[![Internships](https://img.shields.io/badge/recent%20internships-2-555555)](#the-list)
 [![Focus](https://img.shields.io/badge/focus-product%20design%20%2F%20UX-2563eb)](#jasons-shortlist)
 [![Contributions](https://img.shields.io/badge/contributions-welcome-16a34a)](CONTRIBUTING.md)
 
@@ -43,7 +43,6 @@ This list can look short because it intentionally excludes third-party job board
 | --- | --- | --- | --- | --- | --- | --- |
 | Closed | MATTE Projects | Junior Graphic Designer | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/matteprojects/jobs/6146127004) | Aug 18 |
 | Closed | Palantir | Product Designer, Internship - US Government | Palo Alto, CA | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://jobs.lever.co/palantir/9db71277-3a9a-481b-a2a3-25c3125b0e8a) | Jul 31 |
-| Closed | Gemini | Junior Brand Designer (Social) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://boards.greenhouse.io/embed/job_app?for=gemini&token=7955267&gh_jid=7955267) | Jul 30 |
 <!-- INTERNSHIPS:END -->
 
 ## Opportunity List
