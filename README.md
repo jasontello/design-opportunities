@@ -7,7 +7,7 @@ This repo is modeled after public opportunity lists, but tuned for the kind of d
 > Last updated: July 7, 2026
 
 [![Opportunities](https://img.shields.io/badge/opportunities-15-111827)](#opportunity-list)
-[![Internships](https://img.shields.io/badge/recent%20internships-4-555555)](#the-list)
+[![Internships](https://img.shields.io/badge/recent%20internships-5-555555)](#the-list)
 [![Focus](https://img.shields.io/badge/focus-product%20design%20%2F%20UX-2563eb)](#jasons-shortlist)
 [![Contributions](https://img.shields.io/badge/contributions-welcome-16a34a)](CONTRIBUTING.md)
 
@@ -42,6 +42,7 @@ This list can look short because it intentionally excludes third-party job board
 | Status | Company | Role | Location | Deadline | Application/Link | Date Posted |
 | --- | --- | --- | --- | --- | --- | --- |
 | Open | Toast | Associate Product Designer | Remote, US | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.toasttab.com/jobs?gh_jid=8126072) | Sep 08 |
+| Open | Coinbase | Product Design Intern | Hybrid - San Francisco, CA | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.coinbase.com/careers/positions/8175339?gh_jid=8175339) | Sep 08 |
 | Open | Roblox | [Summer 2027] Product Design Intern | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143984?gh_jid=8143984) | Sep 02 |
 | Open | Roblox | [2027] Associate Product Designer, Early Career | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143982?gh_jid=8143982) | Sep 02 |
 | Closed | MATTE Projects | Junior Graphic Designer | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://job-boards.greenhouse.io/matteprojects/jobs/6146127004) | Aug 18 |
