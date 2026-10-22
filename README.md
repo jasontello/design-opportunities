@@ -41,11 +41,11 @@ This list can look short because it intentionally excludes third-party job board
 <!-- INTERNSHIPS:START -->
 | Status | Company | Role | Location | Deadline | Application/Link | Date Posted |
 | --- | --- | --- | --- | --- | --- | --- |
-| Open | Roblox | [Summer 2027] Product Design Intern | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143984?gh_jid=8143984) | Oct 21 |
-| Open | Roblox | [2027] Associate Product Designer, Early Career | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143982?gh_jid=8143982) | Oct 21 |
+| Open | Roblox | [Summer 2027] Product Design Intern | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143984?gh_jid=8143984) | Oct 22 |
+| Open | Roblox | [2027] Associate Product Designer, Early Career | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143982?gh_jid=8143982) | Oct 22 |
 | Open | Coinbase | Product Design Intern | Hybrid - San Francisco, CA | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.coinbase.com/careers/positions/8175339?gh_jid=8175339) | Oct 13 |
-| Open | Pinterest | UX Quantitative Research Intern (USA) | Remote, US | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.pinterestcareers.com/jobs/?gh_jid=8140217) | Oct 08 |
-| Open | Gemini | Product Design Intern (Winter 2027) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://boards.greenhouse.io/embed/job_app?for=gemini&token=8240208&gh_jid=8240208) | Oct 08 |
+| Closed | Pinterest | UX Quantitative Research Intern (USA) | Remote, US | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.pinterestcareers.com/jobs/?gh_jid=8140217) | Oct 08 |
+| Closed | Gemini | Product Design Intern (Winter 2027) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://boards.greenhouse.io/embed/job_app?for=gemini&token=8240208&gh_jid=8240208) | Oct 08 |
 | Closed | Gemini | Brand Design Intern (Winter 2027) | New York, New York | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://boards.greenhouse.io/embed/job_app?for=gemini&token=8243097&gh_jid=8243097) | Oct 02 |
 | Closed | Pinterest | UX Engineering Intern (San Francisco) | San Francisco, CA, US | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.pinterestcareers.com/jobs/?gh_jid=8140210) | Oct 01 |
 <!-- INTERNSHIPS:END -->
