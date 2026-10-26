@@ -41,8 +41,8 @@ This list can look short because it intentionally excludes third-party job board
 <!-- INTERNSHIPS:START -->
 | Status | Company | Role | Location | Deadline | Application/Link | Date Posted |
 | --- | --- | --- | --- | --- | --- | --- |
-| Open | Roblox | [Summer 2027] Product Design Intern | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143984?gh_jid=8143984) | Oct 25 |
-| Open | Roblox | [2027] Associate Product Designer, Early Career | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143982?gh_jid=8143982) | Oct 25 |
+| Open | Roblox | [Summer 2027] Product Design Intern | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143984?gh_jid=8143984) | Oct 26 |
+| Open | Roblox | [2027] Associate Product Designer, Early Career | San Mateo, CA, United States | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://careers.roblox.com/jobs/8143982?gh_jid=8143982) | Oct 26 |
 | Open | 1Password | Product Management Intern, End User Experience - Winter 2027 | Remote (United States \| Canada) | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://jobs.ashbyhq.com/1password/bef2e88e-9590-467d-8ba6-821b30529003) | Oct 23 |
 | Open | Coinbase | Product Design Intern | Hybrid - San Francisco, CA | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.coinbase.com/careers/positions/8175339?gh_jid=8175339) | Oct 13 |
 | Closed | Pinterest | UX Quantitative Research Intern (USA) | Remote, US | Not listed | [![Apply](https://img.shields.io/badge/Apply-555555?style=for-the-badge)](https://www.pinterestcareers.com/jobs/?gh_jid=8140217) | Oct 08 |
